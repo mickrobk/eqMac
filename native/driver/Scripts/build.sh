@@ -1,11 +1,11 @@
 #!/bin/sh
 # Type a script or drag a script file from your workspace to insert its path.
-if [ "${CONFIGURATION}" = "Release" ]; then
+#if [ "${CONFIGURATION}" = "Release" ]; then
     cp -r "$BUILT_PRODUCTS_DIR/$FULL_PRODUCT_NAME" "$SRCROOT/../app/Embedded/"
-fi
+#fi
 
 if [ "${CONFIGURATION}" = "Debug" ]; then
-    export SUDO_ASKPASS=~/askpass.sh
+    export SUDO_ASKPASS=~/eq_askpass.sh
     # Uninstall any new driver leftovers
     sudo -A rm -rf /Library/Audio/Plug-Ins/HAL/eqMac.driver/
     # Install the new driver
@@ -24,7 +24,7 @@ if [ "${CONFIGURATION}" = "Debug" ]; then
     sleep 5
 
     # Wait until coreaudiod has restarted and device is ready to use.
-    retries=5
+    retries=15
     while [[ $retries -gt 0 ]]; do
       if ! system_profiler SPAudioDataType | grep "eqMac:" >/dev/null 2>&1; then
         retries=$((retries - 1))

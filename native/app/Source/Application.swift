@@ -10,7 +10,7 @@ import Foundation
 import Cocoa
 import AMCoreAudio
 import Dispatch
-import Sentry
+//import Sentry
 import EmitterKit
 import AVFoundation
 import SwiftyUserDefaults
@@ -105,14 +105,20 @@ class Application {
   }
   
   private static func setupCrashReporting () {
+    return
+        // TODO disabled!
     // Create a Sentry client and start crash handler
-    SentrySDK.start { options in
-      options.dsn = Constants.SENTRY_ENDPOINT
-      options.sampleRate = 0.1
-    }
+//    SentrySDK.start { options in
+//      options.dsn = Constants.SENTRY_ENDPOINT
+//      options.sampleRate = 0.1
+//    }
   }
   
   private static func checkDriver (_ completion: @escaping() -> Void) {
+      completion()
+    return;
+    // TODO reenable this check
+    
     if !Driver.isInstalled || Driver.isMismatched {
       let isJustMismatched = Driver.isInstalled && Driver.isMismatched
       let message = isJustMismatched ?
